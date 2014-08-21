@@ -102,11 +102,12 @@ function load_content() {
         <input type="checkbox" id="repeat_box" checked="true" />\
         Repeat\
         </p>\
+        <p>\
         <table style="width:300px">\
             <tr>\
                 <td>Start position:</td>\
                 <td><input type="text" id="start_input" size="6" readonly></td>\
-                <td><button type="button" id="start_butt" style="cursor: pointer !important;">Use current position</button></td>\
+                <td><button type="button" id="start_butt" style="cursor: pointer !important; color: cyan !important">Use current position</button></td>\
             </tr>\
             <tr>\
                 <td>End position:</td>\
@@ -114,6 +115,7 @@ function load_content() {
                 <td><button type="button" id="end_butt">Use current position</button></td>\
             </tr>\
         </table> \
+        </p>\
         </form>\
         </div>'
     );
