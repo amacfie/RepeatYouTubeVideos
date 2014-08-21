@@ -9,9 +9,10 @@ function set_start() {
     window.RepeatYouTubeVideos.start = pos;
     
     // move end to new start if necessary
-    if (pos > window.RepeatYouTubeVideos.end)
+    if (pos > window.RepeatYouTubeVideos.end) {
         jQuery( '#end_input' ).val(pos);
         window.RepeatYouTubeVideos.end = pos;
+    }
 
     clearInterval(window.RepeatYouTubeVideos.interval);
     window.RepeatYouTubeVideos.interval = setInterval(
@@ -25,9 +26,10 @@ function set_end() {
     window.RepeatYouTubeVideos.end = pos;
 
     // move start to new end if necessary
-    if (pos < window.RepeatYouTubeVideos.start)
+    if (pos < window.RepeatYouTubeVideos.start) {
         jQuery( '#start_input' ).val(pos);
         window.RepeatYouTubeVideos.start = pos;
+    }
 
     clearInterval(window.RepeatYouTubeVideos.interval);
     window.RepeatYouTubeVideos.interval = setInterval(
