@@ -7,6 +7,11 @@ function set_start() {
         pos = window.RepeatYouTubeVideos.end;
     jQuery( '#start_input' ).val(pos);
     window.RepeatYouTubeVideos.start = pos;
+    
+    // move end to new start if necessary
+    if (pos > window.RepeatYouTubeVideos.end)
+        jQuery( '#end_input' ).val(pos);
+        window.RepeatYouTubeVideos.end = pos;
 
     clearInterval(window.RepeatYouTubeVideos.interval);
     window.RepeatYouTubeVideos.interval = setInterval(
@@ -16,10 +21,13 @@ function set_start() {
 
 function set_end() {
     var pos = window.RepeatYouTubeVideos.video.getCurrentTime();
-    if (pos < window.RepeatYouTubeVideos.start)
-        pos = window.RepeatYouTubeVideos.start;
     jQuery( '#end_input' ).val(pos);
     window.RepeatYouTubeVideos.end = pos;
+
+    // move start to new end if necessary
+    if (pos < window.RepeatYouTubeVideos.start)
+        jQuery( '#start_input' ).val(pos);
+        window.RepeatYouTubeVideos.start = pos;
 
     clearInterval(window.RepeatYouTubeVideos.interval);
     window.RepeatYouTubeVideos.interval = setInterval(
@@ -40,7 +48,8 @@ function toggle_repeat() {
 
 function check_reset() {
     var player = window.RepeatYouTubeVideos.video;
-    if( player.getCurrentTime() >= window.RepeatYouTubeVideos.end ) {
+    if( player.getCurrentTime() >= window.RepeatYouTubeVideos.end &&
+       player.getCurrentState() != 2) {
         player.seekTo(window.RepeatYouTubeVideos.start, true);
         player.playVideo();
     }
