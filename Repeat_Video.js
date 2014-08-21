@@ -49,7 +49,7 @@ function toggle_repeat() {
 function check_reset() {
     var player = window.RepeatYouTubeVideos.video;
     if( player.getCurrentTime() >= window.RepeatYouTubeVideos.end &&
-       player.getCurrentState() != 2) {
+       player.getPlayerState() != 2) {
         player.seekTo(window.RepeatYouTubeVideos.start, true);
         player.playVideo();
     }
