@@ -14,10 +14,10 @@ function set_start() {
         window.RepeatYouTubeVideos.end = pos;
     }
 
-    clearInterval(window.RepeatYouTubeVideos.interval);
-    window.RepeatYouTubeVideos.interval = setInterval(
-        function(){check_reset();}, 500
-    );
+    //clearInterval(window.RepeatYouTubeVideos.interval);
+    //window.RepeatYouTubeVideos.interval = setInterval(
+    //    function(){check_reset();}, 500
+    //);
 }
 
 function set_end() {
@@ -31,10 +31,11 @@ function set_end() {
         window.RepeatYouTubeVideos.start = pos;
     }
 
-    clearInterval(window.RepeatYouTubeVideos.interval);
-    window.RepeatYouTubeVideos.interval = setInterval(
-        function(){check_reset();}, 500
-    );
+    //onlyif uncqed
+    //clearInterval(window.RepeatYouTubeVideos.interval);
+    //window.RepeatYouTubeVideos.interval = setInterval(
+    //    function(){check_reset();}, 500
+    //);
 
 }
 
