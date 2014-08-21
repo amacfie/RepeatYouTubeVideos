@@ -3,8 +3,6 @@
 
 function set_start() {
     var pos = window.RepeatYouTubeVideos.video.getCurrentTime();
-    if (pos > window.RepeatYouTubeVideos.end) 
-        pos = window.RepeatYouTubeVideos.end;
     jQuery( '#start_input' ).val(pos);
     window.RepeatYouTubeVideos.start = pos;
     
