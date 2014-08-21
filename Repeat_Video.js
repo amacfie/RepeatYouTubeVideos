@@ -107,12 +107,16 @@ function load_content() {
             <tr>\
                 <td>Start position:</td>\
                 <td><input type="text" id="start_input" size="6" readonly></td>\
-                <td><button type="button" id="start_butt" style="cursor: pointer !important; color: cyan !important">Use current position</button></td>\
+                <td><button type="button" id="start_butt" \
+                    style="cursor: pointer !important; color: blue !important">\
+                    Use current position</button></td>\
             </tr>\
             <tr>\
                 <td>End position:</td>\
                 <td><input type="text" id="end_input" size="6" readonly></td>\
-                <td><button type="button" id="end_butt">Use current position</button></td>\
+                <td><button type="button" id="end_butt" \
+                    style="cursor: pointer !important; color: blue !important">\
+                    Use current position</button></td>\
             </tr>\
         </table> \
         </p>\
