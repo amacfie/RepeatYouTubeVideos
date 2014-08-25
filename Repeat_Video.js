@@ -77,7 +77,13 @@ function loadcssfile(filename){
 function ms_format(x){
     var m = Math.floor(x/60.0);
     var s = x - 60*m;
-    return m.toString() + ':' + s.toString();
+
+    var ret = '';
+    ret += m.toString() + ':';
+    if (s < 10)
+        ret += '0';
+    ret += s.toString();
+    return ret;
 }
 
 function load_ui() {
