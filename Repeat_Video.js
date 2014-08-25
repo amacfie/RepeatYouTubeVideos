@@ -3,38 +3,26 @@
 
 function set_start() {
     var pos = window.RepeatYouTubeVideos.video.getCurrentTime();
-    jQuery( '#start_input' ).val(pos);
+    jQuery( '#start_input' ).val(ms_format(pos));
     window.RepeatYouTubeVideos.start = pos;
     
     // move end to new start if necessary
     if (pos > window.RepeatYouTubeVideos.end) {
-        jQuery( '#end_input' ).val(pos);
+        jQuery( '#end_input' ).val(ms_format(pos));
         window.RepeatYouTubeVideos.end = pos;
     }
-
-    //clearInterval(window.RepeatYouTubeVideos.interval);
-    //window.RepeatYouTubeVideos.interval = setInterval(
-    //    function(){check_reset();}, 500
-    //);
 }
 
 function set_end() {
     var pos = window.RepeatYouTubeVideos.video.getCurrentTime();
-    jQuery( '#end_input' ).val(pos);
+    jQuery( '#end_input' ).val(ms_format(pos));
     window.RepeatYouTubeVideos.end = pos;
 
     // move start to new end if necessary
     if (pos < window.RepeatYouTubeVideos.start) {
-        jQuery( '#start_input' ).val(pos);
+        jQuery( '#start_input' ).val(ms_format(pos));
         window.RepeatYouTubeVideos.start = pos;
     }
-
-    //onlyif uncqed
-    //clearInterval(window.RepeatYouTubeVideos.interval);
-    //window.RepeatYouTubeVideos.interval = setInterval(
-    //    function(){check_reset();}, 500
-    //);
-
 }
 
 function toggle_repeat() {
@@ -86,6 +74,11 @@ function loadcssfile(filename){
     fileref.setAttribute("href", filename);
     document.getElementsByTagName("head")[0].appendChild(fileref);
 }
+function ms_format(x){
+    var m = Math.floor(x/60.0);
+    var s = x - 60*m;
+    return m.toString() + ':' + s.toString();
+}
 
 function load_ui() {
     jQuery.noConflict();
@@ -129,8 +122,8 @@ function load_content() {
     window.RepeatYouTubeVideos.end = player.getDuration();
 
     jQuery( '#repeat_box' ).prop('checked', RepeatYouTubeVideos.repeat);
-    jQuery( '#start_input' ).val(window.RepeatYouTubeVideos.start);
-    jQuery( '#end_input' ).val(window.RepeatYouTubeVideos.end);
+    jQuery( '#start_input' ).val(ms_format(window.RepeatYouTubeVideos.start));
+    jQuery( '#end_input' ).val(ms_format(window.RepeatYouTubeVideos.end));
 
     //set up looping
     window.RepeatYouTubeVideos.interval = setInterval(
