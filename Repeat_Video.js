@@ -38,7 +38,16 @@ function toggle_repeat() {
 
 function check_reset() {
     var player = window.RepeatYouTubeVideos.video;
+    // If the video has reached or gone past the end of the repeat interval,
+    // go to the beginning of the repeat interval
     if( player.getCurrentTime() >= window.RepeatYouTubeVideos.end &&
+       player.getPlayerState() != 2) {
+        player.seekTo(window.RepeatYouTubeVideos.start, true);
+        player.playVideo();
+    }
+    // If the video is at a point before the start of the repeat interval,
+    // skip to the start of the repeat interval
+    if( player.getCurrentTime() < window.RepeatYouTubeVideos.start &&
        player.getPlayerState() != 2) {
         player.seekTo(window.RepeatYouTubeVideos.start, true);
         player.playVideo();
