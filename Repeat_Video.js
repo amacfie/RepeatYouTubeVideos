@@ -54,15 +54,6 @@ function check_reset() {
     }
 }
 
-function loadhtml(htmlStr) {
-    var frag = document.createDocumentFragment(),
-        temp = document.createElement('div');
-    temp.innerHTML = htmlStr;
-    while (temp.firstChild) {
-        frag.appendChild(temp.firstChild);
-    }
-    document.body.insertBefore(frag, document.body.childNodes[0]);
-}
 function loadjsfile(src, callback) {
     var script = document.createElement('script'),
         loaded;
@@ -77,6 +68,7 @@ function loadjsfile(src, callback) {
     }
     document.getElementsByTagName('head')[0].appendChild(script);
 }
+
 function loadcssfile(filename){
     var fileref = document.createElement("link");
     fileref.setAttribute("rel", "stylesheet");
@@ -84,6 +76,7 @@ function loadcssfile(filename){
     fileref.setAttribute("href", filename);
     document.getElementsByTagName("head")[0].appendChild(fileref);
 }
+
 function ms_format(x){
     var m = Math.floor(x/60.0);
     var s = x - 60*m;
@@ -104,7 +97,7 @@ function load_ui() {
 function load_content() {
     var player = window.RepeatYouTubeVideos.video;
 
-    loadhtml(
+    jQuery(document.body).append(
         '<div id="dialog" title="Bookmarklet">\
         <form>\
         <p>\
