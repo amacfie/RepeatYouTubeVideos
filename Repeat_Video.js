@@ -26,7 +26,7 @@ function set_end() {
     }
 }
 
-function toggle_repeat() {
+function update_repeat_status() {
     if (jQuery( '#repeat_box' ).prop('checked') ) {
         window.RepeatYouTubeVideos.interval = setInterval(
             function(){check_reset();}, 500
@@ -95,8 +95,6 @@ function load_ui() {
 }
 
 function load_content() {
-    var player = window.RepeatYouTubeVideos.video;
-
     jQuery(document.body).append(
         '<div id="dialog" title="Bookmarklet">\
         <form>\
@@ -126,25 +124,17 @@ function load_content() {
         </div>'
     );
 
-    window.RepeatYouTubeVideos.repeat = true;
-    window.RepeatYouTubeVideos.start = 0;
-    window.RepeatYouTubeVideos.end = player.getDuration();
-
-    jQuery( '#repeat_box' ).prop('checked', RepeatYouTubeVideos.repeat);
-    jQuery( '#start_input' ).val(ms_format(window.RepeatYouTubeVideos.start));
-    jQuery( '#end_input' ).val(ms_format(window.RepeatYouTubeVideos.end));
-
-    //set up looping
-    window.RepeatYouTubeVideos.interval = setInterval(
-        function(){check_reset();}, 500
-    );
-
+    // Init state of repetition 
+    initInterval();
+    jQuery( '#repeat_box' ).prop('checked', true);
+    update_repeat_status();
     
-    jQuery( '#repeat_box' ).change(toggle_repeat);
-
+    // Handle UI events
+    jQuery( '#repeat_box' ).change(update_repeat_status);
     jQuery( '#start_butt' ).click( set_start );
     jQuery( '#end_butt' ).click( set_end );
 
+    // Show the dialog box
     jQuery( '#dialog' ).dialog({ 
         autoOpen: true, 
         width: 350,
@@ -155,14 +145,41 @@ function load_content() {
            jQuery('.ui-widget-overlay').css('z-index',2099999999);
         }
     });
+
+    window.RepeatYouTubeVideos.video.addEventListener('onStateChange',
+      onytplayerStateChange);
 }
 
-if(!window.RepeatYouTubeVideos) {
+function onytplayerStateChange (newState) {
+  if (newState === -1) {
+    jQuery( '#dialog' ).dialog('close');
+    jQuery( '#repeat_box' ).prop('checked', false);
+    update_repeat_status();
+    initInterval();
+  }
+}
+
+//Set interval values and UI elements
+function initInterval () {
+    var player = window.RepeatYouTubeVideos.video;
+    window.RepeatYouTubeVideos.start = 0;
+    window.RepeatYouTubeVideos.end = player.getDuration();
+
+    jQuery( '#start_input' ).val(ms_format(window.RepeatYouTubeVideos.start));
+    jQuery( '#end_input' ).val(ms_format(window.RepeatYouTubeVideos.end));
+}
+
+// If the bookmarklet has not been loaded yet
+if (!window.RepeatYouTubeVideos) {
     window.RepeatYouTubeVideos = {};
     window.RepeatYouTubeVideos.video = document.getElementById('movie_player');
+    if (!window.RepeatYouTubeVideos.video) {
+      return;
+    }
 
     loadcssfile("https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css");
 
+    // Dumb: promises would be better
     loadjsfile("https://code.jquery.com/jquery-2.1.1.min.js", load_ui);
 } else {
     // open the window again if it was closed
