@@ -1,6 +1,7 @@
 /*jshint multistr: true */
 // https://developers.google.com/youtube/js_api_reference
 
+(function () {
 function set_start() {
     var pos = window.RepeatYouTubeVideos.video.getCurrentTime();
     jQuery( '#start_input' ).val(ms_format(pos));
@@ -167,4 +168,5 @@ if(!window.RepeatYouTubeVideos) {
         jQuery( '#dialog' ).dialog( 'open' );
     }
 }
+})();
 
